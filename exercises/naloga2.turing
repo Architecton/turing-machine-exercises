@@ -1,0 +1,15 @@
+q0 a a r q0
+q0 0 0 r q0
+
+; q0 - state for deleting 'b's
+q0 b 0 l q1
+q1 0 0 l q1
+
+; q1 - state for deleting 'a's
+q1 a 0 r q0
+
+; encountering a blank symbol on the right
+; the state q2 checks if all 'a's were consumed
+q0 _ _ l q2
+q2 0 0 l q2
+q2 _ _ * halt

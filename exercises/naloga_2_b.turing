@@ -1,0 +1,32 @@
+;Turing program that accepts language of the form L = {a^i*b^i*c^i | i >= 0}
+
+; move right to the first b symbol.
+q0 a a r q0
+q0 0 0 r q0
+
+; change the first b symbol to a 0, change state to q1 and go left until
+; encountering first a.
+q0 b 0 l q1
+q1 0 0 l q1
+; when encountering first a, go to state q0 and repeat the process.
+q1 a 0 r q0
+
+; if encountering a c symbol, go to state q2 and change the c to 1.
+q0 c 1 l q2
+; change two 0 symbols to 1.
+q2 0 1 l q3
+q2 1 1 l q2
+q3 1 1 l q3
+q3 0 1 r q0
+
+; repeat the process.
+q0 1 1 r q0
+
+; when encountering right edge, go to state q4.
+q0 _ _ l q4
+
+; go back on 1's using state q4.
+q4 1 1 l q4
+
+; if successfully reached left edge, halt.
+q4 _ _ * halt

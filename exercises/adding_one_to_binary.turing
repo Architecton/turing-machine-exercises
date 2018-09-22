@@ -1,0 +1,16 @@
+; Turing program for adding 1 to a binary number
+
+; move right to the end of the tape until reaching _.
+q0 1 1 r q1
+q1 1 1 r q1
+q1 0 0 r q1
+q1 _ _ l q2
+
+; if the last digit is 0, change it to 1 and halt.
+q2 0 1 * halt
+
+; if the last digit is 1, go left changing all 1's to 0's until encountering a 0 or _.
+q2 1 0 l q3
+q3 1 0 l q3
+q3 0 1 * halt
+q3 _ 1 * halt

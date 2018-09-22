@@ -1,0 +1,39 @@
+; go to the @ separator in state q0
+q0 1 1 r q0
+q0 0 0 r q0
+q0 @ @ r q1
+
+; change the first encountered 1 or 0 to 'a' and change state accordingly
+q1 a a r q1
+q1 1 a l q2 ; go to state q2 if encountering 1
+q1 0 a l q3 ; go to state q3 if encountering 0
+
+; use the corresponding state to move to the first blank on the left of the input word
+; if in q2
+q2 a a l q2
+q2 @ @ l q2
+q2 0 0 l q2
+q2 1 1 l q2
+q2 _ _ r q4
+
+; if in q3
+q3 a a l q3
+q3 @ @ l q3
+q3 0 0 l q3
+q3 1 1 l q3
+q3 _ _ r q5
+; /////////////////////////////////////
+; change the leftmost nonconsumed symbol to a
+; if in q4
+q4 a a r q4
+q4 1 a r q0
+; if in q5
+q5 0 a r q0
+q5 a a r q5
+
+; when the right substring was consumed (encountering a blank in state q1)
+; go to search state to check if the substring on the left was also consumed
+q1 _ _ l q6
+q6 a a l q6
+q6 @ @ l q6
+q6 _ _ * halt

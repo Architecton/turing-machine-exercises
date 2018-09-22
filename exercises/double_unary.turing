@@ -1,0 +1,23 @@
+; Turing program for doubling a unary number
+
+; move right to the right edge and write 0 to the first blank cell.
+q0 1 1 r q0
+q0 0 0 r q0
+q0 _ 0 l q1
+
+; go left to the first cell with a 1, change it to 0 and go back to state q0.
+q1 0 0 l q1
+q1 1 0 r q0
+
+; if there were no more cells with 1 left, go right and go to state q2
+q1 _ _ r q2
+
+; replace the first 0 with _ and go to state q3. 
+; (there is initially one symbol to many on the tape.)
+q2 0 _ r q3
+
+; replace all 0's with 1's
+q3 0 1 r q3
+
+; on reaching the right edge, halt
+q3 _ _ * halt

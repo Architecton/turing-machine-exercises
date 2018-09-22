@@ -1,0 +1,17 @@
+; Turing program for checking if a binary number is even
+
+; read the first symbol, go to q1 and move right.
+q0 1 1 r q1
+
+; keep moving right until encountering a _ symbol.
+q1 1 1 r q1
+q1 0 0 r q1
+q1 _ _ l q2
+
+; read the last symbol in the binary number and change state accordingly.
+q2 1 1 r q_false
+q2 0 0 r q_true
+
+; write Y after the number if the number is even and N if it is not.
+q_false _ N * halt
+q_true _ Y * halt

@@ -1,0 +1,21 @@
+; change the first a to 0
+q0 a 0 r q2
+q0 0 0 r q0
+
+; change the first b to 0
+q2 a a r q2
+q2 0 0 r q2
+q2 b 0 r q3
+
+; change the first c to 0
+q3 b b r q3
+q3 0 0 r q3
+q3 c 0 l q4
+
+; go back to the blank on the left of the of the input word
+q4 * * l q4
+; go back to q0
+q4 _ _ r q0
+
+; if encountering blank in q0, it means that the whole q0 was consumed (halt)
+q0 _ _ * halt

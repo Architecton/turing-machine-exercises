@@ -1,0 +1,41 @@
+;/////////////////////////////////////////////////////
+; move left until reaching a blank symbol. Odd states denote 1's, even states denote 0's
+q0 1 _ r q1
+q0 0 _ r q2
+
+; in case of an even length palindrome, machine will read _ in q0
+q0 _ Y * halt
+
+
+q1 1 1 r q1
+q1 0 0 r q1
+
+q2 1 1 r q2
+q2 0 0 r q2
+
+; when reaching a black symbol _, go left and change state
+q1 _ _ l q3
+q2 _ _ l q4
+
+; check the last symbol and see if it matches the first one. If not, halt.
+q3 1 _ l q5
+q3 0 _ * halt
+
+q4 1 _ * halt
+q4 0 _ l q6
+
+; check if the last symbol was consumed
+q3 _ Y * halt
+q4 _ Y * halt
+
+;//////////////////////77///////////////////////////////
+; go back to the beginning until reaching a blank symbol
+
+q5 1 1 l q5
+q5 0 0 l q5
+q6 1 1 l q6
+q6 0 0 l q6
+
+; go back to initial state and start the process again
+q5 _ _ r q0
+q6 _ _ r q0

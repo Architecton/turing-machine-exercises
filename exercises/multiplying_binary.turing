@@ -1,0 +1,10 @@
+; Turing program for multiplying a binary number by 2
+
+; move to the right until encountering a _.
+q0 1 1 r q2
+q2 1 1 r q2
+q2 0 0 r q2
+
+; change the first _ after a 1 or a 0 to a 0.
+q2 _ 0 * halt
+

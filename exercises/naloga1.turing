@@ -1,0 +1,11 @@
+; turing machine that accepts an even binary number
+
+; move to the first blank cell to the right of the input word
+q0 0 0 r q0
+q0 1 1 r q0
+
+; move left after reaching the first blank cell
+q0 _ _ l q1
+
+; if the leftmost cell in the word contains a 0, the number is even (halt)
+q1 0 0 * halt

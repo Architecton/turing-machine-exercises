@@ -1,0 +1,9 @@
+; Turing program that adds two unary numbers delimited by a symbol 0
+
+; if the first number is 0, erase the delimiter and halt
+q0 0 _ * halt
+; erase the first symbol 1, go to state q1 and move right
+q0 1 _ r q1
+q1 1 1 r q1
+; replace the delimiter with the symbol 1
+q1 0 1 * halt

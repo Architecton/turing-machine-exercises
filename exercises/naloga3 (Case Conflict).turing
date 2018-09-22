@@ -1,0 +1,40 @@
+; Turing program that accepts L = {w#w | w∈(0, 1)*}.
+
+; Go right to the # symbol.
+q0 * * r q0
+
+; When encountering, go to state 1 and move to the right edge or first a. 
+q0 # # r q1
+q1 * * r q1
+
+; When getting to right edge or first a, go back one cell
+q1 _ _ l q2
+q1 a a l q2
+
+; go into state representing the symbol on adjacent to the right edge
+q2 1 a l q3
+q2 0 a l q4
+
+; If all symbols were consumed, halt.
+q2 # # * halt
+
+; state q3 represents return with 1
+; state q4 represents return with 0
+; Go to symbol #.
+
+q3 * * l q3
+q4 * * l q4
+
+q3 # # l q5
+q4 # # l q6
+
+; q5 represents left check with 1
+; q6 represents left check with 0
+
+; move over a's until encountering 1
+q5 a a l q5
+q5 1 a r q0
+
+; move over a's until encountering 0
+q6 a a l q6
+q6 0 a r q0
